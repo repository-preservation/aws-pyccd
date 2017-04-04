@@ -14,6 +14,6 @@ $(PIP):
 setup: $(VENV) $(PIP)
 	. $(VENV)/bin/activate && \
 	$(PIP) install -r requirements.txt
-
+	conda install -c conda-forge datacube=1.3.0
 clean:
 	-rm -rf venv
