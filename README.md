@@ -4,13 +4,13 @@ Project for running Open Data Cube on AWS.
 
 ## Setup
 
-This project requires Python 3.6.
+This project requires miniconda: https://conda.io/docs/install/quick.html 
 
-Create a virtual environment and install dependencies.
-
-```
-make setup
-```
+conda config --add channels conda-forge
+conda create --name aws-pyccd python=3.5 datacube
+source activate aws-pyccd
+pip install lcmap-pyccd
+conda install jupyter matplotlib scipy -y
 
 ## Usage
 
