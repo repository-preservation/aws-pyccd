@@ -20,6 +20,9 @@ Start the notebook server.
 bin/notebook-server
 ```
 
+If AWS RDS is not available, a local Docker instance of Postgres can be easily run: 
+```docker run --name some-postgres -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword postgres```
+
 ## License
 
 TBD
