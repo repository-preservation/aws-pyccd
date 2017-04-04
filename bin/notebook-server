@@ -8,6 +8,7 @@ then
     echo
     echo "Starting Jupyter notebook server on $IP ..."
     echo
+    mkdir notebooks
     venv/bin/jupyter notebook --no-browser -y --ip=0.0.0.0 --notebook-dir=./notebooks --log-level=INFO
 else
     echo
