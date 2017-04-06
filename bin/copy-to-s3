@@ -1,0 +1,28 @@
+#!/usr/bin/env python
+
+import boto3
+import tarfile
+import io
+import sys
+import glob
+
+def expand_and_put(path, bucket):
+    """"""
+    with tarfile.open(path) as tar:
+        for name in tar.getnames():
+            print("save {}".format(name))
+            data = tar.extractfile(name).read()
+            bucket.put_object(Key=name, Body=data)
+
+# Usage example:
+# copy-to-s3 /espa-storage/downloads/lcmap/sites/washington/H05V02-*/LT05*1993*.tar.gz
+#
+
+if __name__ == "__main__":
+    s3 = boto3.resource('s3')
+    test_odc_bucket = s3.Bucket('test-odc-bucket')
+    print("copy to S3: {}".format(sys.argv[1]))
+    paths = sys.argv[1:]
+    for path in paths:
+        print("open {}".format(path))
+        expand_and_put(path, test_odc_bucket)
