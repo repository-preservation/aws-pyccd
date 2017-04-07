@@ -3,5 +3,19 @@
 IP=$(ip -o -f inet addr|grep eth0|awk '{print $4}'|awk -F / '{print $1}')
 
 mkdir -p notebooks
-jupyter notebook --no-browser -y --ip=0.0.0.0 --notebook-dir=./notebooks --log-level=INFO
 
+# This holds extra configuration and SSL files for running
+# a Jupyter notebook securely.
+#
+MISC="$(pwd)/misc"
+
+# Set the JUPYTER_PASSWD environment variable to override the
+# deefault value of 'secret'
+
+jupyter notebook --no-browser -y \
+        --ip=* \
+        --notebook-dir=./notebooks \
+        --log-level=INFO \
+        --config=misc/jupyter_notebook_config.py \
+        --certfile=$MISC/notebook.crt \
+        --keyfile=$MISC/notebook.key

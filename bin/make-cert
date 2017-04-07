@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# The misc directory will contain the certificate and key used
+# by Jupyter notebook to provide a secure connection.
+#
+
+mkdir -p misc
+
+# This is a fairly generic certificate, if you're particular about
+# values in the subject, change them...
+#
+
+openssl genrsa -des3 -passout pass:x -out misc/notebook.pass.key 2048
+openssl rsa -passin pass:x -in misc/notebook.pass.key -out misc/notebook.key
+rm misc/notebook.pass.key
+
+openssl req -new \
+  -key misc/notebook.key \
+  -out misc/notebook.csr \
+  -subj "/C=US/ST=South Dakota/L=Sioux Falls/O=USGS/OU=EROS/CN=usgs.org"
+
+openssl x509 -req -days 365 \
+  -in misc/notebook.csr \
+  -signkey misc/notebook.key \
+  -out misc/notebook.crt
